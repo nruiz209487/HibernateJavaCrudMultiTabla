@@ -1,4 +1,5 @@
 
+import java.sql.Date;
 import java.util.List;
 
 public class MetodosCompras {
@@ -74,13 +75,80 @@ public class MetodosCompras {
 	 * @param
 	 * @throws
 	 */
-	public static void eliminarPorTiempoPrecio(int precio, int precioLimite) throws Exception {
+	public static void eliminarPorPrecio(double precio, double precioLimite) throws Exception {
 		try {
 			ServiceDB.abrir();
 			String hql = "DELETE FROM EntidadCompras WHERE precio > :precio AND precio < :precioLimite";
 			int eliminados = ServiceDB.sesion.createQuery(hql).setParameter("precio", precio)
 					.setParameter("precioLimite", precioLimite).executeUpdate();
 			System.out.println(eliminados + " EnddiadCompras eliminadas con tiempo Jugado menor a: " + precio);
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
+	/**
+	 * Elimina personas con un saldo menor al valor dado saldo Valor de tiempoJugado
+	 * como límite inferior.
+	 * 
+	 * @param tiempoJugadoLimite
+	 * 
+	 * @param
+	 * @throws
+	 */
+	public static void eliminarPorFecha(Date fecha, Date fechaLimite) throws Exception {
+		try {
+			ServiceDB.abrir();
+			String hql = "DELETE FROM EntidadCompras WHERE fecha > :fecha AND fecha < :fechaLimite";
+			int eliminados = ServiceDB.sesion.createQuery(hql).setParameter("fecha", fecha)
+					.setParameter("fechaLimite", fechaLimite).executeUpdate();
+			System.out.println(eliminados + " EnddiadCompras eliminadas con tiempo fecha: " + fecha);
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
+	/**
+	 * Elimina personas con un saldo menor al valor dado saldo Valor de tiempoJugado
+	 * como límite inferior.
+	 * 
+	 * @param tiempoJugadoLimite
+	 * 
+	 * @param
+	 * @throws
+	 */
+	public static void eliminarPorIdGame(int idGame) throws Exception {
+		try {
+			ServiceDB.abrir();
+			String hql = "DELETE FROM EntidadCompras WHERE  idGame = :idGame";
+			int eliminados = ServiceDB.sesion.createQuery(hql).setParameter("idGame", idGame).executeUpdate();
+			System.out.println(eliminados + " EnddiadCompras eliminadas con idGame: " + idGame);
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
+	/**
+	 * Elimina personas con un saldo menor al valor dado saldo Valor de tiempoJugado
+	 * como límite inferior.
+	 * 
+	 * @param tiempoJugadoLimite
+	 * 
+	 * @param
+	 * @throws
+	 */
+	public static void eliminarPorIdPlayer(int idPlayer) throws Exception {
+		try {
+			ServiceDB.abrir();
+			String hql = "DELETE FROM EntidadCompras WHERE  idPlayer = :idPlayer";
+			int eliminados = ServiceDB.sesion.createQuery(hql).setParameter("idPlayer", idPlayer).executeUpdate();
+			System.out.println(eliminados + " EnddiadCompras eliminadas con idPlayer: " + idPlayer);
 		} catch (Exception e) {
 			throw new Exception(e);
 		} finally {
@@ -106,6 +174,7 @@ public class MetodosCompras {
 			if (entidad != null) {
 				entidad.setCosa(x.getCosa());
 				entidad.setPrecio(x.getPrecio());
+				entidad.setFechaCompra(x.getFechaCompra());
 				ServiceDB.sesion.update(entidad);
 			}
 			return entidad;
@@ -172,6 +241,90 @@ public class MetodosCompras {
 		}
 	}
 
+	/***
+	 * Acuializa una persona por id primero hace el get de la entidad y por ultimo
+	 * setea la pupiedad Nombre devuelve una exapxion en caso de que algo falle
+	 * 
+	 * @param class1
+	 * @param id
+	 * @param nuevaPersona
+	 * @return
+	 * @throws Exception
+	 */
+	public static EntidadCompras ActualizarPorIdPropiedadFecha(Class<EntidadCompras> class1, int id, EntidadCompras x)
+			throws Exception {
+		try {
+			ServiceDB.abrir();
+			EntidadCompras entidad = ServiceDB.sesion.get(class1, id);
+			if (entidad != null) {
+				entidad.setFechaCompra(x.getFechaCompra());
+				ServiceDB.sesion.update(entidad);
+			}
+			return entidad;
+		} catch (Exception e) {
+			throw new Exception(e);
+
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
+	/***
+	 * Acuializa una persona por id primero hace el get de la entidad y por ultimo
+	 * setea la pupiedad Nombre devuelve una exapxion en caso de que algo falle
+	 * 
+	 * @param class1
+	 * @param id
+	 * @param nuevaPersona
+	 * @return
+	 * @throws Exception
+	 */
+	public static EntidadCompras ActualizarPorIdPropiedadIdPlayer(Class<EntidadCompras> class1, int id,
+			EntidadCompras x) throws Exception {
+		try {
+			ServiceDB.abrir();
+			EntidadCompras entidad = ServiceDB.sesion.get(class1, id);
+			if (entidad != null) {
+				entidad.setPlayer(x.getPlayer());
+				ServiceDB.sesion.update(entidad);
+			}
+			return entidad;
+		} catch (Exception e) {
+			throw new Exception(e);
+
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
+	/***
+	 * Acuializa una persona por id primero hace el get de la entidad y por ultimo
+	 * setea la pupiedad Nombre devuelve una exapxion en caso de que algo falle
+	 * 
+	 * @param class1
+	 * @param id
+	 * @param nuevaPersona
+	 * @return
+	 * @throws Exception
+	 */
+	public static EntidadCompras ActualizarPorIdPropiedadIdCompra(Class<EntidadCompras> class1, int id,
+			EntidadCompras x) throws Exception {
+		try {
+			ServiceDB.abrir();
+			EntidadCompras entidad = ServiceDB.sesion.get(class1, id);
+			if (entidad != null) {
+				entidad.setGame(x.getGame());
+				ServiceDB.sesion.update(entidad);
+			}
+			return entidad;
+		} catch (Exception e) {
+			throw new Exception(e);
+
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
 	/**
 	 * Select por nombre recibe el nombre como parametro para la consulta SQL y
 	 * devuelve un listado si hay un error lanza una excepcion
@@ -203,7 +356,7 @@ public class MetodosCompras {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<EntidadCompras> obtenerPorPrecio(int precio, int precioLimite) throws Exception {
+	public static List<EntidadCompras> obtenerPorPrecio(double precio, double precioLimite) throws Exception {
 		List<EntidadCompras> obj;
 		try {
 			ServiceDB.abrir();
@@ -211,6 +364,30 @@ public class MetodosCompras {
 
 			obj = ServiceDB.sesion.createQuery(hql, EntidadCompras.class).setParameter("precio", precio)
 					.setParameter("precioLimite", precioLimite).getResultList();
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			ServiceDB.cerrar();
+		}
+		return obj;
+	}
+
+	/**
+	 * Optiene las personas con un saldo mayor al saldo dado usa por consulta SQL si
+	 * hay un error se lanza una excepcion
+	 * 
+	 * @param tiempoJugado
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<EntidadCompras> obtenerPorFecha(String fecha, String fechaLimite) throws Exception {
+		List<EntidadCompras> obj;
+		try {
+			ServiceDB.abrir();
+			String hql = "FROM EntidadCompras WHERE  fecha > :fecha AND fecha < :fechaLimite";
+
+			obj = ServiceDB.sesion.createQuery(hql, EntidadCompras.class).setParameter("fecha", fecha)
+					.setParameter("fechaLimite", fechaLimite).getResultList();
 		} catch (Exception e) {
 			throw new Exception(e);
 		} finally {
@@ -248,7 +425,7 @@ public class MetodosCompras {
 	public static void eliminarTablaCompras() throws Exception {
 		try {
 			ServiceDB.abrir();
-			String hql = "DROP TABLE EntidadGames";
+			String hql = "DELETE FROM EntidadCompras";
 			ServiceDB.sesion.createQuery(hql, EntidadGames.class);
 		} catch (Exception e) {
 			throw new Exception(e);

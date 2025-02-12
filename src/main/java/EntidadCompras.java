@@ -33,21 +33,35 @@ public class EntidadCompras implements Serializable {
 	@Column(name = "Precio", precision = 6, scale = 2)
 	private double precio;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "FechaCompra")
 	private Date fechaCompra;
 
 	public EntidadCompras() {
 	}
 
-	public EntidadCompras(int idCompra, EntidadPlayer player, EntidadGames game, String cosa, double precio,
-			Date fechaCompra) {
-		this.idCompra = idCompra;
+	public EntidadCompras(EntidadPlayer player, EntidadGames game, String cosa, double precio, Date fechaCompra) {
 		this.player = player;
 		this.game = game;
 		this.cosa = cosa;
 		this.precio = precio;
 		this.fechaCompra = fechaCompra;
+	}
+
+	public EntidadCompras(String cosa, double precio, Date fechaCompra) {
+		this.cosa = cosa;
+		this.precio = precio;
+		this.fechaCompra = fechaCompra;
+	}
+
+	public EntidadCompras(String cosa, double precio) {
+		this.cosa = cosa;
+		this.precio = precio;
+
+	}
+
+	public EntidadCompras(EntidadPlayer player, EntidadGames game) {
+		this.player = player;
+		this.game = game;
 	}
 
 	public int getIdCompra() {
