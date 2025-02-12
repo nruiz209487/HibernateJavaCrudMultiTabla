@@ -248,10 +248,12 @@ public class MetodosGames {
 	public static void eliminarTabla() throws Exception {
 		try {
 			ServiceDB.abrir();
-			String hql = "DROP TABLE EntidadGames";
-			ServiceDB.sesion.createQuery(hql, EntidadGames.class);
+			String hql = "DELETE FROM EntidadGames";
+			int eliminados = ServiceDB.sesion.createQuery(hql).executeUpdate();
+			System.out.println(eliminados + " registros eliminados de la tabla EntidadGames");
+
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new Exception("Error al eliminar registros de EntidadGames ");
 		} finally {
 			ServiceDB.cerrar();
 		}

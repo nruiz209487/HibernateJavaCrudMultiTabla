@@ -1,5 +1,4 @@
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,7 +22,6 @@ public class EntidadGames implements Serializable {
 	}
 
 	public EntidadGames(String nombre) {
-
 		this.nombre = nombre;
 	}
 

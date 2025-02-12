@@ -2,23 +2,6 @@
 import java.util.List;
 
 public class MetodosPlayer {
-	/**
-	 * Obtiene un listadio de personas completa si ahy un error lanza un escepcion
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public static void eliminarTabla() throws Exception {
-		try {
-			ServiceDB.abrir();
-			String hql = "DROP TABLE EntidadPlayerF";
-			ServiceDB.sesion.createQuery(hql, EntidadPlayer.class);
-		} catch (Exception e) {
-			throw new Exception(e);
-		} finally {
-			ServiceDB.cerrar();
-		}
-	}
 
 	/**
 	 * Obtiene un listadio de personas completa si ahy un error lanza un escepcion
@@ -320,4 +303,25 @@ public class MetodosPlayer {
 		}
 		return personas;
 	}
+
+	/**
+	 * Obtiene un listadio de personas completa si ahy un error lanza un escepcion
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static void eliminarTabla() throws Exception {
+		try {
+			ServiceDB.abrir();
+			String hql = "DELETE FROM EntidadPlayer";
+			int eliminados = ServiceDB.sesion.createQuery(hql).executeUpdate();
+			System.out.println(eliminados + " registros eliminados de la tabla EntidadPlayer");
+
+		} catch (Exception e) {
+			throw new Exception("Error al eliminar registros de EntidadPlayer ");
+		} finally {
+			ServiceDB.cerrar();
+		}
+	}
+
 }

@@ -417,18 +417,20 @@ public class MetodosCompras {
 	}
 
 	/**
-	 * Obtiene un listadio de personas completa si ahy un error lanza un escepcion
+	 * Elimina todas las compras de la tabla EntidadCompras Si hay un error, lanza
+	 * una excepción.
 	 * 
-	 * @return
 	 * @throws Exception
 	 */
 	public static void eliminarTablaCompras() throws Exception {
 		try {
 			ServiceDB.abrir();
 			String hql = "DELETE FROM EntidadCompras";
-			ServiceDB.sesion.createQuery(hql, EntidadGames.class);
+			int eliminados = ServiceDB.sesion.createQuery(hql).executeUpdate();
+			System.out.println(eliminados + " registros eliminados de la tabla EntidadCompras");
+
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new Exception("Error al eliminar registros de EntidadCompras");
 		} finally {
 			ServiceDB.cerrar();
 		}
