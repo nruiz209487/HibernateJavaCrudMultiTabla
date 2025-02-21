@@ -1,6 +1,7 @@
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Player")
@@ -21,6 +22,9 @@ public class EntidadPlayer implements Serializable {
 
 	@Column(name = "email", nullable = false, length = 100)
 	private String email;
+	
+	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EntidadCompras> compras;
 
 	public EntidadPlayer() {
 	}
@@ -71,11 +75,16 @@ public class EntidadPlayer implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	@Override
 	public String toString() {
-		return "EntidadPlayer [idPlayer=" + idPlayer + ", nick=" + nick + ", password=" + password + ", email=" + email
-				+ "]";
+	    return String.format(
+	        "Jugador:\n" +
+	        "  ID: %d\n" +
+	        "  Nick: %s\n" +
+	        "  Contraseña: %s\n" +
+	        "  Email: %s\n",
+	        idPlayer, nick, password, email
+	    );
 	}
 
 }

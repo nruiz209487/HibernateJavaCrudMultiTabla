@@ -1,6 +1,7 @@
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Games")
@@ -18,6 +19,9 @@ public class EntidadGames implements Serializable {
 	@Column(name = "tiempoJugado")
 	private int tiempoJugado;
 
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EntidadCompras> compras;
+
 	public EntidadGames() {
 	}
 
@@ -33,6 +37,10 @@ public class EntidadGames implements Serializable {
 
 		this.nombre = nombre;
 		this.tiempoJugado = tiempoJugado;
+	}
+
+	public int getIdGames() {
+		return idGames;
 	}
 
 	public String getNombre() {
@@ -53,7 +61,13 @@ public class EntidadGames implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EntidadGames [idGames=" + idGames + ", nombre=" + nombre + ", tiempoJugado=" + tiempoJugado + "]";
+	    return String.format(
+	        "Juego:\n" +
+	        "  ID: %d\n" +
+	        "  Nombre: %s\n" +
+	        "  Tiempo Jugado: %d horas\n",
+	        idGames, nombre, tiempoJugado
+	    );
 	}
 
 }

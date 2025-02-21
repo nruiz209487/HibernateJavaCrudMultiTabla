@@ -318,7 +318,7 @@ public class MetodosPlayer {
 			System.out.println(eliminados + " registros eliminados de la tabla EntidadPlayer");
 
 		} catch (Exception e) {
-			throw new Exception("Error al eliminar registros de EntidadPlayer ");
+			throw new Exception(e);
 		} finally {
 			ServiceDB.cerrar();
 		}

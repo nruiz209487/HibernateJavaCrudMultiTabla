@@ -4,14 +4,13 @@ import java.util.Scanner;
 
 public class MainPlayer {
 
-	private static Scanner sc = new Scanner(System.in);
+	private static Scanner sc = Main.sc;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		int opcion;
 		do {
-			menuPlayer();
-			opcion = sc.nextInt();
-			sc.nextLine();
+			mostrarMenu();
+			opcion = Main.pedirInt();
 			switch (opcion) {
 			case 0:
 				System.err.println("Ha salido del programa.");
@@ -20,19 +19,19 @@ public class MainPlayer {
 				nuevoJugador();
 				break;
 			case 2:
-				sleccionarJugador();
+				seleccionarJugador();
 				break;
 			case 3:
 				mostrarTodosLosJugadores();
 				break;
 			case 4:
-				seleccionarJuegadoresPorNick();
+				seleccionarJugadoresPorNick();
 				break;
 			case 5:
-				seleccionarJugadoresPorContasenya();
+				seleccionarJugadoresPorContrasenya();
 				break;
 			case 6:
-				seleccionarJuegadoresPorEmail();
+				seleccionarJugadoresPorEmail();
 				break;
 			case 7:
 				actualizarJugador();
@@ -41,7 +40,7 @@ public class MainPlayer {
 				actualizarPorNickJugador();
 				break;
 			case 9:
-				actualizarPorContasenyaJugador();
+				actualizarPorContrasenyaJugador();
 				break;
 			case 10:
 				actualizarPorEmailJugador();
@@ -59,34 +58,39 @@ public class MainPlayer {
 				eliminarJugadorPorEmail();
 				break;
 			case 16:
-				MetodosGames.eliminarTabla();
+				try {
+					MetodosPlayer.eliminarTabla();
+				} catch (Exception e) {
+					System.err.println("Error al eliminar la tabla.");
+				}
 				break;
 			default:
 				System.err.println("Opción no válida.");
 				break;
 			}
 		} while (opcion != 0);
-		sc.close();
+
 	}
 
-	private static void menuPlayer() {
-		System.out.println("Elija una opción:");
-		System.out.println("1. Nuevo Jugador");
+	public static void mostrarMenu() {
+		System.out.println(Colores.GREEN + Colores.BOLD + "===== MENÚ DE JUGADORES =====" + Colores.BLUE);
+		System.out.println(Colores.WHITE + "1. Nuevo Jugador");
 		System.out.println("2. Seleccionar Jugador");
 		System.out.println("3. Mostrar Todos los Jugadores");
-		System.out.println("4. Buscar Jugadores por Nick");
-		System.out.println("5. Buscar Jugadores por Contraseña");
-		System.out.println("6. Buscar Jugadores por Email");
+		System.out.println("4. Buscar Jugador por Nick");
+		System.out.println("5. Buscar Jugador por Contraseña");
+		System.out.println("6. Buscar Jugador por Email");
 		System.out.println("7. Actualizar Jugador");
 		System.out.println("8. Actualizar Nick");
 		System.out.println("9. Actualizar Contraseña");
 		System.out.println("10. Actualizar Email");
 		System.out.println("11. Eliminar Jugador");
-		System.out.println("13. Eliminar Por Nick");
-		System.out.println("14. Eliminar Por Contraseña");
-		System.out.println("15. Eliminar Por Email");
-		System.out.println("16. Eliminar Tabla");
-		System.out.println("0. Salir");
+		System.out.println("12. Eliminar por Nick");
+		System.out.println("13. Eliminar por Contraseña");
+		System.out.println("14. Eliminar por Email");
+		System.out.println("15. Eliminar Tabla");
+		System.out.println(Colores.RED + "0. Salir" + Colores.BLUE);
+		System.out.println(Colores.GREEN + "=============================" + Colores.BLUE);
 	}
 
 	private static void actualizarJugador() {
@@ -96,26 +100,32 @@ public class MainPlayer {
 		String email;
 		String contrasenya;
 		int id;
-		System.out.println("Introduce el ID del Player a actualizar:");
-		id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Ingrese el nuevo nombre del Player:");
+
+		System.out.println("\n=== Actualizar Jugador ===");
+		System.out.print("Introduce el ID del Jugador a actualizar: ");
+		id = Main.pedirInt();
+
+		System.out.print("Ingrese el nuevo nombre del Jugador: ");
 		nick = sc.nextLine();
-		System.out.println("Ingrese el nuevo email del Player:");
+
+		System.out.print("Ingrese el nuevo email del Jugador: ");
 		email = sc.nextLine();
-		System.out.println("Ingrese el nuevo contrasenya del Player:");
+
+		System.out.print("Ingrese la nueva contraseña del Jugador: ");
 		contrasenya = sc.nextLine();
+
 		obj = new EntidadPlayer(nick, contrasenya, email);
 		try {
 			objActualizada = MetodosPlayer.ActulizarPorId(EntidadPlayer.class, id, obj);
 			if (objActualizada != null) {
-				System.out.println("Player actualizado con éxito:");
+				System.out.println("\n¡Jugador actualizado con éxito!");
+				System.out.println("Detalles del Jugador actualizado:");
 				System.out.println(objActualizada);
 			} else {
-				System.err.println("No se encontró ningún Player con el ID proporcionado.");
+				System.err.println("\nError: No se encontró ningún Jugador con el ID proporcionado.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al actualizar el Player.");
+			System.err.println("\nError: No se pudo actualizar el Jugador.");
 		}
 	}
 
@@ -124,46 +134,53 @@ public class MainPlayer {
 		EntidadPlayer objActualizada;
 		String nombre;
 		int id;
-		System.out.println("Introduce el ID del Player a actualizar:");
-		id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Ingrese el nuevo nick del Player:");
+
+		System.out.println("\n=== Actualizar Jugador por Nick ===");
+		System.out.print("Introduce el ID del Jugador a actualizar: ");
+		id = Main.pedirInt();
+		System.out.print("Ingrese el nuevo nick del Jugador: ");
 		nombre = sc.nextLine();
+
 		obj = new EntidadPlayer(nombre, "", "");
 		try {
 			objActualizada = MetodosPlayer.ActulizarPorIdPropiedadNick(EntidadPlayer.class, id, obj);
 			if (objActualizada != null) {
-				System.out.println("Player actualizado con éxito:");
+				System.out.println("\n¡Jugador actualizado con éxito!");
+				System.out.println("Detalles del Jugador actualizado:");
 				System.out.println(objActualizada);
 			} else {
-				System.err.println("No se encontró ningún Player con el ID proporcionado.");
+				System.err.println("\nError: No se encontró ningún Jugador con el ID proporcionado.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al actualizar el Player.");
+			System.err.println("\nError: No se pudo actualizar el Jugador.");
 		}
 	}
 
-	private static void actualizarPorContasenyaJugador() {
+	private static void actualizarPorContrasenyaJugador() {
 		EntidadPlayer obj;
 		EntidadPlayer objActualizada;
-		String contasenaya;
+		String contrasenya;
 		int id;
-		System.out.println("Introduce el ID del Player a actualizar:");
-		id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Ingrese el nuevo contrasenya del Player:");
-		contasenaya = sc.nextLine();
-		obj = new EntidadPlayer("", contasenaya, "");
+
+		System.out.println("\n=== Actualizar Jugador por Contraseña ===");
+		System.out.print("Introduce el ID del Jugador a actualizar: ");
+		id = Main.pedirInt();
+
+		System.out.print("Ingrese la nueva contraseña del Jugador: ");
+		contrasenya = sc.nextLine();
+
+		obj = new EntidadPlayer("", contrasenya, "");
 		try {
 			objActualizada = MetodosPlayer.ActulizarPorIdPropiedadPassword(EntidadPlayer.class, id, obj);
 			if (objActualizada != null) {
-				System.out.println("Player actualizado con éxito:");
+				System.out.println("\n¡Jugador actualizado con éxito!");
+				System.out.println("Detalles del Jugador actualizado:");
 				System.out.println(objActualizada);
 			} else {
-				System.err.println("No se encontró ningún Player con el ID proporcionado.");
+				System.err.println("\nError: No se encontró ningún Jugador con el ID proporcionado.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al actualizar el Player.");
+			System.err.println("\nError: No se pudo actualizar el Jugador.");
 		}
 	}
 
@@ -172,166 +189,192 @@ public class MainPlayer {
 		EntidadPlayer objActualizada;
 		String email;
 		int id;
-		System.out.println("Introduce el ID del Player a actualizar:");
-		id = sc.nextInt();
-		sc.nextLine();
-		System.out.println("Ingrese el nuevo email del Player:");
+
+		System.out.println("\n=== Actualizar Jugador por Email ===");
+		System.out.print("Introduce el ID del Jugador a actualizar: ");
+		id = Main.pedirInt();
+
+		System.out.print("Ingrese el nuevo email del Jugador: ");
 		email = sc.nextLine();
+
 		obj = new EntidadPlayer("", "", email);
 		try {
 			objActualizada = MetodosPlayer.ActulizarPorIdPropiedadEmail(EntidadPlayer.class, id, obj);
 			if (objActualizada != null) {
-				System.out.println("Player actualizado con éxito:");
+				System.out.println("\n¡Jugador actualizado con éxito!");
+				System.out.println("Detalles del Jugador actualizado:");
 				System.out.println(objActualizada);
 			} else {
-				System.err.println("No se encontró ningún Player con el ID proporcionado.");
+				System.err.println("\nError: No se encontró ningún Jugador con el ID proporcionado.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al actualizar el Player.");
+			System.err.println("\nError: No se pudo actualizar el Jugador.");
 		}
 	}
 
 	private static void eliminarJugador() {
 		int id;
-		System.out.println("Introduce el ID del Player a eliminar:");
-		id = sc.nextInt();
-		sc.nextLine();
+
+		System.out.println("\n=== Eliminar Jugador ===");
+		System.out.print("Introduce el ID del Jugador a eliminar: ");
+		id = Main.pedirInt();
 		try {
 			MetodosPlayer.EliminarPorId(EntidadPlayer.class, id);
-			System.out.println("Player eliminado con éxito.");
+			System.out.println("\n¡Jugador eliminado con éxito!");
 		} catch (Exception e) {
-			System.err.println("Error al eliminar el Player.");
+			System.err.println("\nError: No se pudo eliminar el Jugador. ");
 		}
 	}
 
 	private static void eliminarJugadorPorNick() {
 		String nick;
-		System.out.println("Introduce el nombre del Player a eliminar:");
+
+		System.out.println("\n=== Eliminar Jugador por Nick ===");
+		System.out.print("Introduce el nombre del Jugador a eliminar: ");
 		nick = sc.nextLine();
+
 		try {
 			MetodosPlayer.eliminarPorNick(nick);
-			System.out.println("Player eliminado con éxito.");
+			System.out.println("\n¡Jugador eliminado con éxito!");
 		} catch (Exception e) {
-			System.err.println("Error al eliminar el Player.");
+			System.err.println("\nError: No se pudo eliminar el Jugador.");
 		}
 	}
 
 	private static void eliminarJugadorPorContrasenya() {
 		String contrasenya;
-		System.out.println("Introduce la contrasenya del juego a eliminar:");
+
+		System.out.println("\n=== Eliminar Jugador por Contraseña ===");
+		System.out.print("Introduce la contraseña del Jugador a eliminar: ");
 		contrasenya = sc.nextLine();
+
 		try {
 			MetodosPlayer.eliminarPorPassword(contrasenya);
-			System.out.println("Player eliminado con éxito.");
+			System.out.println("\n¡Jugador eliminado con éxito!");
 		} catch (Exception e) {
-			System.err.println("Error al eliminar el Player.");
+			System.err.println("\nError: No se pudo eliminar el Jugador. ");
 		}
 	}
 
 	private static void eliminarJugadorPorEmail() {
 		String email;
-		System.out.println("Introduce el email del Player a eliminar:");
+
+		System.out.println("\n=== Eliminar Jugador por Email ===");
+		System.out.print("Introduce el email del Jugador a eliminar: ");
 		email = sc.nextLine();
+
 		try {
 			MetodosPlayer.eliminarPorEmail(email);
-			System.out.println("Player eliminado con éxito.");
+			System.out.println("\n¡Jugador eliminado con éxito!");
 		} catch (Exception e) {
-			System.err.println("Error al eliminar el juego.");
+			System.err.println("\nError: No se pudo eliminar el Jugador. ");
 		}
 	}
 
-	private static void sleccionarJugador() {
+	private static void seleccionarJugador() {
 		EntidadPlayer obj;
 		int id;
-		System.out.println("Introduce el ID del Player a buscar:");
-		id = sc.nextInt();
-		sc.nextLine();
+
+		System.out.println("\n=== Buscar Jugador por ID ===");
+		System.out.print("Introduce el ID del Jugador a buscar: ");
+		id = Main.pedirInt();
+
 		try {
 			obj = MetodosPlayer.obtenerPorId(EntidadPlayer.class, id);
 			if (obj != null) {
-				System.out.println("Player encontrado:");
+				System.out.println("\n¡Jugador encontrado!");
+				System.out.println("Detalles del Jugador:");
 				System.out.println(obj);
 			} else {
-				System.out.println("No se encontró ningún Player con el ID proporcionado.");
+				System.out.println("\nNo se encontró ningún Jugador con el ID proporcionado.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al buscar el Player.");
+			System.err.println("\nError: No se pudo buscar el Jugador. ");
 		}
 	}
 
-	private static void mostrarTodosLosJugadores() {
+	public static void mostrarTodosLosJugadores() {
 		try {
 			List<EntidadPlayer> obj = MetodosPlayer.mostrarTodosLosJuegadores();
 			if (obj.isEmpty()) {
-				System.out.println("No hay Player registrados.");
+				System.out.println("\nNo hay Jugadores registrados.");
 			} else {
-				System.out.println("Listado de Player:");
+				System.out.println("\n=== Listado de Jugadores ===");
 				for (EntidadPlayer c : obj) {
 					System.out.println(c);
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error al mostrar los Player.");
+			System.err.println("\nError: No se pudieron mostrar los Jugadores. ");
 		}
 	}
 
-	private static void seleccionarJuegadoresPorNick() {
+	private static void seleccionarJugadoresPorNick() {
 		String nick;
 		List<EntidadPlayer> obj;
-		System.out.println("Introduce el nombre del Player a buscar:");
+
+		System.out.println("\n=== Buscar Jugadores por Nick ===");
+		System.out.print("Introduce el nombre del Jugador a buscar: ");
 		nick = sc.nextLine();
+
 		try {
 			obj = MetodosPlayer.obtenerPorNick(nick);
 			if (obj.isEmpty()) {
-				System.out.println("No se encontraron Player con el nombre proporcionado.");
+				System.out.println("\nNo se encontraron Jugadores con el nombre proporcionado.");
 			} else {
-				System.out.println("Player encontrados:");
+				System.out.println("\n¡Jugadores encontrados!");
 				for (EntidadPlayer c : obj) {
 					System.out.println(c);
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error al buscar juegos por nombre.");
+			System.err.println("\nError: No se pudieron buscar los Jugadores. ");
 		}
 	}
 
-	private static void seleccionarJugadoresPorContasenya() {
-		String contasenya;
+	private static void seleccionarJugadoresPorContrasenya() {
+		String contrasenya;
 		List<EntidadPlayer> obj;
-		System.out.println("Introduce la contasenya del Player a buscar:");
-		contasenya = sc.nextLine();
+
+		System.out.println("\n=== Buscar Jugadores por Contraseña ===");
+		System.out.print("Introduce la contraseña del Jugador a buscar: ");
+		contrasenya = sc.nextLine();
+
 		try {
-			obj = MetodosPlayer.obtenerPorPassword(contasenya);
+			obj = MetodosPlayer.obtenerPorPassword(contrasenya);
 			if (obj.isEmpty()) {
-				System.out.println("No se encontraron Player con el contasenya proporcionado.");
+				System.out.println("\nNo se encontraron Jugadores con la contraseña proporcionada.");
 			} else {
-				System.out.println("Player encontrados:");
+				System.out.println("\n¡Jugadores encontrados!");
 				for (EntidadPlayer c : obj) {
 					System.out.println(c);
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error al buscar juegos por nombre.");
+			System.err.println("\nError: No se pudieron buscar los Jugadores. ");
 		}
 	}
 
-	private static void seleccionarJuegadoresPorEmail() {
+	private static void seleccionarJugadoresPorEmail() {
 		String email;
 		List<EntidadPlayer> obj;
-		System.out.println("Introduce el nombre del Player a buscar:");
+
+		System.out.println("\n=== Buscar Jugadores por Email ===");
+		System.out.print("Introduce el email del Jugador a buscar: ");
 		email = sc.nextLine();
+
 		try {
 			obj = MetodosPlayer.obtenerPorEmail(email);
 			if (obj.isEmpty()) {
-				System.out.println("No se encontraron Player con el nombre proporcionado.");
+				System.out.println("\nNo se encontraron Jugadores con el email proporcionado.");
 			} else {
-				System.out.println("Player encontrados:");
+				System.out.println("\n¡Jugadores encontrados!");
 				for (EntidadPlayer c : obj) {
 					System.out.println(c);
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error al buscar Player por email.");
+			System.err.println("\nError: No se pudieron buscar los Jugadores. ");
 		}
 	}
 
@@ -340,18 +383,22 @@ public class MainPlayer {
 		String email;
 		String contrasenya;
 		EntidadPlayer nuevoJugador;
-		System.out.println("Ingrese el nombre del nuevo Player:");
+
+		System.out.println("\n=== Nuevo Jugador ===");
+		System.out.print("Ingrese el nombre del nuevo Jugador: ");
 		nick = sc.nextLine();
-		System.out.println("Ingrese el email del nuevo Player:");
+
+		System.out.print("Ingrese el email del nuevo Jugador: ");
 		email = sc.nextLine();
-		System.out.println("Ingrese el contrasenya del nuevo Player:");
+
+		System.out.print("Ingrese la contraseña del nuevo Jugador: ");
 		contrasenya = sc.nextLine();
 
 		nuevoJugador = new EntidadPlayer(nick, contrasenya, email);
 		try {
 			guardar(nuevoJugador);
 		} catch (Exception e) {
-			System.err.println("Error al guardar el Player.");
+			System.err.println("\nError: No se pudo guardar el Jugador.  ");
 		}
 	}
 
@@ -359,9 +406,9 @@ public class MainPlayer {
 		try {
 			ServiceDB.abrir();
 			int id = (int) ServiceDB.guardar(cosa);
-			System.out.println("Player guardado con ID: " + id);
+			System.out.println("\n¡Jugador guardado con éxito! ID: " + id);
 		} catch (Exception e) {
-			System.err.println("Error al guardar el Player: " + e.getMessage());
+			System.err.println("\nError: No se pudo guardar el Jugador.");
 		} finally {
 			ServiceDB.cerrar();
 		}

@@ -253,7 +253,7 @@ public class MetodosGames {
 			System.out.println(eliminados + " registros eliminados de la tabla EntidadGames");
 
 		} catch (Exception e) {
-			throw new Exception("Error al eliminar registros de EntidadGames ");
+			throw new Exception(e);
 		} finally {
 			ServiceDB.cerrar();
 		}

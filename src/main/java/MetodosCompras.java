@@ -380,7 +380,7 @@ public class MetodosCompras {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<EntidadCompras> obtenerPorFecha(String fecha, String fechaLimite) throws Exception {
+	public static List<EntidadCompras> obtenerPorFecha(Date fecha, Date fechaLimite) throws Exception {
 		List<EntidadCompras> obj;
 		try {
 			ServiceDB.abrir();
@@ -430,7 +430,7 @@ public class MetodosCompras {
 			System.out.println(eliminados + " registros eliminados de la tabla EntidadCompras");
 
 		} catch (Exception e) {
-			throw new Exception("Error al eliminar registros de EntidadCompras");
+			throw new Exception(e);
 		} finally {
 			ServiceDB.cerrar();
 		}

@@ -114,8 +114,21 @@ public class EntidadCompras implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EntidadCompras [idCompra=" + idCompra + ", player=" + player + ", game=" + game + ", cosa=" + cosa
-				+ ", precio=" + precio + ", fechaCompra=" + fechaCompra + "]";
+	    return String.format(
+	        "Compra:\n" +
+	        "  ID: %d\n" +
+	        "  Jugador: %s (ID: %d)\n" +
+	        "  Juego: %s (ID: %d)\n" +
+	        "  Cosa: %s\n" +
+	        "  Precio: %.2f\n" +
+	        "  Fecha de Compra: %s\n",
+	        idCompra,
+	        player.getNick(), player.getIdPlayer(),
+	        game.getNombre(), game.getIdGames(),
+	        cosa,
+	        precio,
+	        fechaCompra.toString()
+	    );
 	}
 
 }
