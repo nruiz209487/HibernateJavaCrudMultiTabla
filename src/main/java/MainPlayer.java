@@ -48,16 +48,16 @@ public class MainPlayer {
 			case 11:
 				eliminarJugador();
 				break;
-			case 13:
+			case 12:
 				eliminarJugadorPorNick();
 				break;
-			case 14:
+			case 13:
 				eliminarJugadorPorContrasenya();
 				break;
-			case 15:
+			case 14:
 				eliminarJugadorPorEmail();
 				break;
-			case 16:
+			case 15:
 				try {
 					MetodosPlayer.eliminarTabla();
 				} catch (Exception e) {
