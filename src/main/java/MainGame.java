@@ -5,7 +5,7 @@ public class MainGame {
 
 	private static Scanner sc = Main.sc;
 
-	public static void main(String[] args) {
+	public static void mainGame() {
 		int opcion;
 		do {
 			mostrarMenu();
@@ -77,7 +77,7 @@ public class MainGame {
 		System.out.println("10. Eliminar por Nombre");
 		System.out.println("11. Eliminar por Tiempo Jugado Menor");
 		System.out.println("12. Eliminar Tabla");
-		System.out.println(Colores.RED + "0. Salir" + Colores.BLUE);
+		System.out.println(Colores.RED + "0. Salir");
 		System.out.println(Colores.GREEN + "===========================" + Colores.BLUE);
 	}
 

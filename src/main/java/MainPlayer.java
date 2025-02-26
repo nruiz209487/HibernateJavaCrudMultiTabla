@@ -6,7 +6,7 @@ public class MainPlayer {
 
 	private static Scanner sc = Main.sc;
 
-	public static void main(String[] args) {
+	public static void mainPlayer() {
 		int opcion;
 		do {
 			mostrarMenu();
@@ -89,7 +89,7 @@ public class MainPlayer {
 		System.out.println("13. Eliminar por Contraseña");
 		System.out.println("14. Eliminar por Email");
 		System.out.println("15. Eliminar Tabla");
-		System.out.println(Colores.RED + "0. Salir" + Colores.BLUE);
+		System.out.println(Colores.RED + "0. Salir" );
 		System.out.println(Colores.GREEN + "=============================" + Colores.BLUE);
 	}
 

@@ -13,13 +13,13 @@ public class Main {
 				System.err.println("Ha salido del programa.");
 				break;
 			case 1:
-
+				MainCompras.mainCompras();
 				break;
 			case 2:
-
+				MainGame.mainGame();
 				break;
 			case 3:
-
+				MainPlayer.mainPlayer();
 				break;
 			case 4:
 				MainCompras.mostrarTodasLasCompra();
@@ -45,12 +45,12 @@ public class Main {
 
 	public static void mostrarMenu() {
 		System.out.println(Colores.GREEN + Colores.BOLD + "===== MENÚ PRINCIPAL =====" + Colores.BLUE);
-		System.out.println(Colores.WHITE + "1. Player");
-		System.out.println("2. Compras");
-		System.out.println("3. Games");
+		System.out.println(Colores.WHITE + "1. Compras");
+		System.out.println("2. Game");
+		System.out.println("3. Player");
 		System.out.println("4. Consultar todas las tablas");
 		System.out.println("5. Eliminar todas las tablas");
-		System.out.println(Colores.RED + "0. Salir" + Colores.BLUE);
+		System.out.println(Colores.RED + "0. Salir");
 		System.out.println(Colores.GREEN + "==========================" + Colores.BLUE);
 	}
 

@@ -101,7 +101,7 @@ public class MetodosCompras {
 	public static void eliminarPorFecha(Date fecha, Date fechaLimite) throws Exception {
 		try {
 			ServiceDB.abrir();
-			String hql = "DELETE FROM EntidadCompras WHERE fecha > :fecha AND fecha < :fechaLimite";
+			String hql = "DELETE FROM EntidadCompras WHERE FechaCompra > :fecha AND FechaCompra < :fechaLimite";
 			int eliminados = ServiceDB.sesion.createQuery(hql).setParameter("fecha", fecha)
 					.setParameter("fechaLimite", fechaLimite).executeUpdate();
 			System.out.println(eliminados + " EnddiadCompras eliminadas con tiempo fecha: " + fecha);
@@ -380,15 +380,16 @@ public class MetodosCompras {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<EntidadCompras> obtenerPorFecha(Date fecha, Date fechaLimite) throws Exception {
+	public static List<EntidadCompras> obtenerPorFecha(Date fechaInicial, Date fechaLimite) throws Exception {
 		List<EntidadCompras> obj;
 		try {
 			ServiceDB.abrir();
-			String hql = "FROM EntidadCompras WHERE  fecha > :fecha AND fecha < :fechaLimite";
+			String hql = "FROM EntidadCompras WHERE  FechaCompra > :fechaInicial AND FechaCompra < :fechaLimite";
 
-			obj = ServiceDB.sesion.createQuery(hql, EntidadCompras.class).setParameter("fecha", fecha)
+			obj = ServiceDB.sesion.createQuery(hql, EntidadCompras.class).setParameter("fechaInicial", fechaInicial)
 					.setParameter("fechaLimite", fechaLimite).getResultList();
 		} catch (Exception e) {
+			System.err.println(e);
 			throw new Exception(e);
 		} finally {
 			ServiceDB.cerrar();

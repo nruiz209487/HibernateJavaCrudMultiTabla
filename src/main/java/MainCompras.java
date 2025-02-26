@@ -10,7 +10,7 @@ public class MainCompras {
 	private static Scanner sc = Main.sc;
 	private static SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
-	public static void main(String[] args) {
+	public static void mainCompras() {
 		int opcion;
 		do {
 			mostrarMenu();
@@ -93,7 +93,7 @@ public class MainCompras {
 		System.out.println("13. Eliminar Compra por Fecha");
 		System.out.println("14. Eliminar Compra por Precio");
 		System.out.println("15. Eliminar Tabla de Compras");
-		System.out.println(Colores.RED + "0. Salir" + Colores.BLUE);
+		System.out.println(Colores.RED + "0. Salir");
 		System.out.println(Colores.GREEN + "===========================" + Colores.BLUE);
 	}
 
