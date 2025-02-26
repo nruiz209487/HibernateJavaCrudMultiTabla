@@ -73,7 +73,7 @@ public class MainGame {
 		System.out.println("6. Actualizar Juego");
 		System.out.println("7. Actualizar Nombre");
 		System.out.println("8. Actualizar Tiempo Jugado");
-		System.out.println("9. Eliminar Juego");
+		System.out.println("9. Eliminar Juego)");
 		System.out.println("10. Eliminar por Nombre");
 		System.out.println("11. Eliminar por Tiempo Jugado Menor");
 		System.out.println("12. Eliminar Tabla");
